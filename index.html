@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>WORD SCRAMBLE</h1>
+    <div id="main">
+     <div id="q"></div>   
+    <div id="word"></div>
+    <div id="hin">Hint:</div>
+    <div id="t">Time Left :
+        <span>00</span>
+    </div>
+    <input id="in" type="text">
+    <div>
+    <button id="ref" onclick="refresh()">refresh word</button>
+    <button id="check" type="submit" onclick="con()">check word</button>
+    </div>
+    <div id="res"></div>
+    </div>
+    <script>
+        let q=document.getElementById("q")
+        let h=document.getElementById("hin")
+        let r=document.getElementById("res")
+        let check=document.getElementById("check")
+        let input;
+       let arr=[
+       { "umbrella": "Protects from rain" },
+  { "computer": "Electronic device for processing data" },
+  { "mountain": "High landform with steep sides" },
+  { "keyboard": "Input device for typing" },
+  { "library": "Place with books for borrowing" },
+  { "giraffe": "Tall African mammal" },
+  { "backpack": "Bag carried on the back" },
+  { "airplane": "Aircraft that flies in the sky" },
+  { "telephone": "Device for making calls" },
+  { "calendar": "Organizes days, weeks, months" },
+  {"guitar": "Stringed musical instrument played by plucking or strumming"},
+  {"ocean": "Vast body of saltwater covering much of the Earth's surface"},
+  {"umbrella": "Portable device used for protection from rain or sunlight"},
+  {"bicycle": "Two-wheeled vehicle propelled by pedals"},
+  {"camera": "Device used to capture photographs or record videos"},
+  {"restaurant": "Place where meals are prepared and served to customers"},
+  {"telephone": "Communication device used for voice calls"},
+  {"chocolate": "Sweet food made from roasted and ground cacao seeds"},
+  {"hospital": "Institution providing medical and surgical treatment"},
+  {"dictionary": "Reference book containing words and their meanings"},
+  {"piano": "Musical instrument with a keyboard"},
+  {"airplane": "Powered flying vehicle with fixed wings and engines"},
+  {"rainbow": "Optical and meteorological phenomenon with a spectrum of colors"},
+  { "monster": "Imaginary creature, often frightening" },
+    { "journey": "Travel from one place to another" },
+    { "diamond": "Hard, precious stone" },
+    { "kitchen": "Room for cooking and food preparation" },
+    { "penguin": "Flightless bird found in cold regions" },
+    { "champion": "Winner of a competition" },
+    { "broccoli": "Vegetable with green, flowering heads" },
+    { "treasure": "Valuable objects or money" },
+    { "keyboard": "Input device for computers" }]
+       let len=arr.length
+       let ran,id,t,box,a,ques,quesA
+       function start()
+       {
+        a=61;
+       let random=Math.floor(Math.random()*len)
+       ques=String(Object.keys(arr[random])[0])
+       let hin = arr[random][ques];
+       h.innerHTML="Hint : "+hin
+       quesA=ques.split("")
+       let s=""
+       let g=quesA.length
+       while(g>0)
+       {
+         ran=Math.floor(Math.random()*g)
+         let str=quesA[ran]
+         quesA.splice(ran,1)
+         s=s+str
+         g=g-1
+       }
+
+       q.innerHTML=s.toUpperCase()
+       box=document.getElementById("in")
+       t=document.querySelector("span")
+       id=setInterval(update,1000)
+    }
+       function update()
+       {
+         a=a-1
+         t.innerHTML=a
+         if(a==0)
+         {
+            clearInterval(id)
+            alert("sorry!! Its Time Up Try again")
+            box.disabled=true;
+         }
+         if(a<10)
+         {
+           t.innerHTML= zero(a)
+         }
+       }
+      function zero(num)
+      {
+        return "0"+String(num)
+      } 
+    function con()
+    {
+        input=document.getElementById("in").value.toLowerCase().trim()
+         box.disabled=true;
+         clearInterval(id)
+         input.value=''
+        if(input===ques)
+        {
+
+           alert("Amazing!! Your answer is correct")
+        }
+        else{
+            alert("Oops!! Your answer is wrong")
+        }
+        
+    }
+    function refresh() 
+    {
+    clearInterval(id);
+    document.getElementById("in").value = '';
+    start();
+    a = 61;
+    box.disabled = false;
+    res.innerHTML = '';
+}
+
+     start()
+    </script>
+</body>
+</html>
